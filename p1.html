@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCB tutorial</title>
+    <style>
+        /* Common styles */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            color: #222;
+            font-family: system-ui, sans-serif;
+            padding-bottom: 50px;
+        }
+
+        /* Navigation styles from p1 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #222;
+            transition: all 0.3s ease-in-out;
+            z-index: 1000;
+        }
+
+        .nav .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 0;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #fff;
+            padding: 7px 15px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .nav.active {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav.active a {
+            color: #222;
+        }
+
+        .nav.active .container {
+            padding: 10px 0;
+        }
+
+        .nav a.current, .nav a:hover {
+            color: #D80032;
+            font-weight: bold;
+        }
+
+        /* Hero section styles from p1 */
+        .hero {
+    background-image: url('https://www.ultralibrarian.com/wp-content/uploads/2021/04/shutterstock_386962711-1.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-bottom: 20px;
+    z-index: -2;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+
+        .hero h1 {
+            font-size: 46px;
+            margin: -20px 0 20px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            letter-spacing: 1px;
+        }
+
+        /* Content styles from p1 */
+        .content {
+            margin-bottom: 50px;
+        }
+
+        .content h2, .content h3 {
+            font-size: 150%;
+            margin: 20px 0;
+        }
+
+        .content p {
+            color: #555;
+            line-height: 1.6;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        /* Panel styles from p2 */
+        .panels-container {
+            display: flex;
+            width: 90vw;
+            max-width: 1200px;
+            margin: 50px auto;
+        }
+
+        .panel {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 30px;
+            height: 60vh;
+            color: #fff;
+            cursor: pointer;
+            flex: 0.5;
+            margin: 10px;
+            position: relative;
+            transition: flex 0.7s ease-in;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .panel h3 {
+            font-size: 24px;
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            margin: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease-in 0.4s;
+        }
+
+        .panel.active {
+            flex: 5;
+        }
+
+        .panel.active h3 {
+            opacity: 1;
+        }
+
+        /* Google form section */
+        .form-section {
+            background-color: #f5f5f5;
+            padding: 50px 0;
+            text-align: center;
+        }
+
+        .form-section h2 {
+            margin-bottom: 30px;
+            color: #222;
+        }
+
+        .form-section .btn {
+            display: inline-block;
+            background-color: #D80032;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .form-section .btn:hover {
+            background-color: #b00029;
+        }
+
+        @media (max-width: 768px) {
+            .panels-container {
+                flex-direction: column;
+                height: auto;
+            }
+            
+            .panel {
+                height: 40vh;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <nav class="nav">
+        <div class="container">
+            <h1 class="logo"><a href="#">ACIC-PCB</a></h1>
+        </div>
+    </nav>
+    
+    
+    <div class="hero">
+        <div class="container">
+            <h1>Explore the World of PCB</h1>
+            <p>Discover the fascinating principles behind electric circuits and their applications</p>
+        </div>
+    </div>
+    
+    
+    <section class="container content">
+        <h2>What is PCB</h2>
+        <p>Printed circuits boards, also known as PCBs, are the circuit boards used in most electronic devices. The boards both physically and mechanically support the device alongside connecting the electronic components. PCBs are typically made from non-substrate materials with layers of copper circuitry. </p>        
+        
+    </section>
+    
+    
+    <div class="panels-container">
+        <div class="panel active" style="background-image: url('https://www.wellpcb.com/wp-content/uploads/Image-of-printed-circuit-board-with-components-1200x675.jpg')">
+            <h3>Handmade PCB</h3>
+        </div>
+        <div class="panel" style="background-image: url('https://wevolver-project-images.s3.us-west-1.amazonaws.com/0.tkw1ip2lrwdpcb.jpg')">
+            <h3>Machinemade PCB</h3>
+        </div>
+    </div>
+    
+    
+    <section class="form-section">
+        <div class="container">
+            <h2>Register below using the link!</h2>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSft3R_-ZQne-U-F_pbz-54lKE4hgVm9YRc3KzulIKuhX88fvQ/viewform?usp=sharing" class="btn">Register</a>
+        </div>
+    </section>
+
+    <script>
+       
+        const nav = document.querySelector('.nav');
+
+        window.addEventListener('scroll', fixNav);
+
+        function fixNav() {
+            if (window.scrollY > nav.offsetHeight + 150) {
+                nav.classList.add('active');
+            } else {
+                nav.classList.remove('active');
+            }
+        }
+
+        // Script from p2 - Panel expanding effect
+        const panels = document.querySelectorAll('.panel');
+
+        panels.forEach(panel => {
+            panel.addEventListener('click', () => {
+                removeActiveClass();
+                panel.classList.add('active');
+            });
+        });
+
+        function removeActiveClass() {
+            panels.forEach(panel => {
+                panel.classList.remove('active');
+            });
+        }
+    </script>
+</body>
+</html>

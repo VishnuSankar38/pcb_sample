@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACIC PCB Training</title>
+    <style>
+        :root {
+            --primary-color: #0073e6;
+            --secondary-color: #00c6ff;
+            --dark-primary: #005bb5;
+            --text-light: #ffffff;
+            --text-dark: #333333;
+            --background: #f4f4f4;
+            --card-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            --accent-color: #f0a500;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 60px 20px;
+            font-size: 2.5em;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-light);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(255, 255, 255, 0.05),
+                rgba(255, 255, 255, 0.05) 10px,
+                rgba(255, 255, 255, 0.08) 10px,
+                rgba(255, 255, 255, 0.08) 20px
+            );
+        }
+        
+        .container {
+            width: 85%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+        
+        .module {
+            background: white;
+            margin: 25px 0;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .module:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+        
+        .module-title {
+            font-size: 1.5em;
+            cursor: pointer;
+            background: linear-gradient(90deg, var(--primary-color), var(--dark-primary));
+            color: var(--text-light);
+            padding: 18px 25px;
+            border-radius: 12px 12px 0 0;
+            transition: background 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        
+        .module-title:after {
+            content: '\25BC';
+            font-size: 0.8em;
+            transition: transform 0.3s ease;
+        }
+        
+        .module-title.active:after {
+            transform: rotate(180deg);
+        }
+        
+        .module-content {
+            display: none;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .module-description {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            color: #555;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .video-section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .video-section:last-child {
+            border-bottom: none;
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            margin: 20px 0;
+            font-size: 1.3em;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 3px;
+        }
+        
+        .video-container {
+            position: relative;
+            display: inline-block;
+            width: 90%;
+            max-width: 800px;
+            margin: 15px auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .video-container video {
+            width: 100%;
+            display: block;
+            border-radius: 8px;
+        }
+        
+        .video-controls {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 1em;
+            transition: background 0.3s ease, transform 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn:hover {
+            background: var(--dark-primary);
+            transform: translateY(-2px);
+        }
+        
+        .btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+        
+        .google-form {
+            text-align: center;
+            padding: 30px;
+            margin: 40px 0 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .google-form h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .google-form p {
+            margin-bottom: 25px;
+            font-size: 1.1em;
+            color: #555;
+        }
+        
+        .google-form a {
+            text-decoration: none;
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-size: 1.2em;
+            transition: background 0.3s ease, transform 0.2s ease;
+            display: inline-block;
+        }
+        
+        .google-form a:hover {
+            background: var(--dark-primary);
+            transform: translateY(-2px);
+        }
+        
+        .photo-container {
+            position: relative;
+            display: inline-block;
+            width: 90%;
+            max-width: 600px;
+            margin: 15px auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .photo-container img {
+            width: 100%;
+            display: block;
+            border-radius: 8px;
+        }
+        
+        .photo-description {
+            margin: 20px auto;
+            max-width: 800px;
+            text-align: left;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-left: 4px solid var(--primary-color);
+            border-radius: 0 8px 8px 0;
+        }
+        
+        /* Multi-video grid layout */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .video-card {
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .video-title {
+            padding: 10px;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-align: center;
+            background-color: #f5f5f5;
+        }
+        
+        .video-label {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 10px;
+            }
+            
+            .header {
+                padding: 40px 15px;
+                font-size: 2em;
+            }
+            
+            .module-title {
+                font-size: 1.3em;
+                padding: 15px 20px;
+            }
+            
+            .video-container {
+                width: 100%;
+            }
+            
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        Machinemade PCB
+    </div>
+    
+    <div class="container">
+        
+        <div class="module">
+            <div class="module-title" id="module1-title">Module 1: Introduction</div>
+            <div id="module1" class="module-content">
+                <div class="module-description">
+                    Learn the fundamentals of PCB (Printed Circuit Board) design, including basic concepts, terminology, and industry applications.
+                </div>
+                <div class="video-container">
+                    <video id="video1" controls>
+                        <source src="videos/intro_vdo.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="video-controls">
+                    <button class="btn fullscreen-btn" onclick="toggleFullscreen('video1')" aria-label="Toggle fullscreen for introduction video">
+                        <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                        Toggle Fullscreen
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="module">
+            <div class="module-title" id="module2-title">Module 2: Schematic Design</div>
+            <div id="module2" class="module-content">
+                <div class="module-description">
+                    Learn the art of creating circuit schematics, including component selection and best practices for clear and efficient circuit diagrams.
+                </div>
+                
+                <div class="video-section">
+                    <div class="video-container">
+                        <video id="video2-1" controls>
+                            <source src="videos/schematic_design.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="video-controls">
+                        <button class="btn fullscreen-btn" onclick="toggleFullscreen('video2-1')" aria-label="Toggle fullscreen for schematic design video">
+                            <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                            Toggle Fullscreen
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="photo-description">
+                    <h3>Schematic Design Best Practices</h3>
+                    <p>A good schematic is the foundation of any successful PCB design. Here are some key best practices:</p>
+                    <ul style="text-align: left;">
+                        <li><strong>Clear Layout:</strong> Organize components logically with proper spacing</li>
+                        <li><strong>Consistent Naming:</strong> Use standardized naming conventions for components</li>
+                        <li><strong>Signal Flow:</strong> Arrange components to show signal flow from left to right</li>
+                        <li><strong>Power Distribution:</strong> Clearly mark power and ground connections</li>
+                        <li><strong>Documentation:</strong> Include notes and references for complex circuits</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="module">
+            <div class="module-title" id="module3-title">Module 3: PCB Layout</div>
+            <div id="module3" class="module-content">
+                <div class="module-description">
+                    Master the techniques of PCB layout, including layer management, routing strategies, and design rule considerations.
+                </div>
+                
+                <div class="video-section">
+                    <div class="video-container">
+                        <video id="video3-1" controls>
+                            <source src="videos/pcb_layout.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="video-controls">
+                        <button class="btn fullscreen-btn" onclick="toggleFullscreen('video3-1')" aria-label="Toggle fullscreen for PCB layout video">
+                            <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                            Toggle Fullscreen
+                        </button>
+                    </div>
+                </div>
+                
+                <h3 class="section-title">Layer Management</h3>
+                <div class="video-grid">
+                    <div class="video-card">
+                        <div class="video-title">Two-Layer Boards <span class="video-label">Basic</span></div>
+                        <div class="video-container">
+                            <video id="video3-2" controls>
+                                <source src="videos/two_layer_design.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <div class="video-controls">
+                            <button class="btn fullscreen-btn" onclick="toggleFullscreen('video3-2')" aria-label="Toggle fullscreen for two-layer board video">
+                                <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                                Toggle Fullscreen
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="video-card">
+                        <div class="video-title">Multi-Layer Boards <span class="video-label">Advanced</span></div>
+                        <div class="video-container">
+                            <video id="video3-3" controls>
+                                <source src="videos/multi_layer_design.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <div class="video-controls">
+                            <button class="btn fullscreen-btn" onclick="toggleFullscreen('video3-3')" aria-label="Toggle fullscreen for multi-layer board video">
+                                <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                                Toggle Fullscreen
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="module">
+            <div class="module-title" id="module4-title">Module 4: Component Selection</div>
+            <div id="module4" class="module-content">
+                <div class="module-description">
+                    Learn professional techniques for selecting the right components for your PCB designs, including considerations for cost, availability, and performance.
+                </div>
+                
+                <div class="video-section">
+                    <div class="video-container">
+                        <video id="video4-1" controls>
+                            <source src="videos/component_selection.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="video-controls">
+                        <button class="btn fullscreen-btn" onclick="toggleFullscreen('video4-1')" aria-label="Toggle fullscreen for component selection video">
+                            <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                            Toggle Fullscreen
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="photo-description">
+                    <h3>Component Selection Criteria</h3>
+                    <p>Choosing the right components is critical for the success of your PCB project. Consider these factors:</p>
+                    <ul style="text-align: left;">
+                        <li><strong>Electrical Specifications:</strong> Ensure components meet your circuit requirements</li>
+                        <li><strong>Package Type:</strong> Select appropriate package sizes for your layout constraints</li>
+                        <li><strong>Availability:</strong> Consider component life cycle and supply chain reliability</li>
+                        <li><strong>Cost:</strong> Balance between performance and budget considerations</li>
+                        <li><strong>Environmental Factors:</strong> Temperature ranges, humidity, and vibration tolerance</li>
+                        <li><strong>Regulatory Compliance:</strong> RoHS, REACH, and other relevant standards</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="module">
+            <div class="module-title" id="module5-title">Module 5: Soldering Techniques</div>
+            <div id="module5" class="module-content">
+                <div class="module-description">
+                    Master various soldering techniques for both SMD and through-hole components, including tools, materials, and professional methods.
+                </div>
+                
+                <h3 class="section-title">Soldering Fundamentals</h3>
+                <div class="video-section">
+                    <div class="video-container">
+                        <video id="video5-1" controls>
+                            <source src="videos/soldering_fundamentals.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="video-controls">
+                        <button class="btn fullscreen-btn" onclick="toggleFullscreen('video5-1')" aria-label="Toggle fullscreen for soldering fundamentals video">
+                            <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                            Toggle Fullscreen
+                        </button>
+                    </div>
+                </div>
+                
+                <h3 class="section-title">Advanced Soldering Techniques</h3>
+                <div class="video-grid">
+                    <div class="video-card">
+                        <div class="video-title">SMD Soldering <span class="video-label">Surface Mount</span></div>
+                        <div class="video-container">
+                            <video id="video5-2" controls>
+                                <source src="videos/smd_soldering.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <div class="video-controls">
+                            <button class="btn fullscreen-btn" onclick="toggleFullscreen('video5-2')" aria-label="Toggle fullscreen for SMD soldering video">
+                                <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                                Toggle Fullscreen
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="video-card">
+                        <div class="video-title">Through-Hole Soldering <span class="video-label">Traditional</span></div>
+                        <div class="video-container">
+                            <video id="video5-3" controls>
+                                <source src="videos/through_hole_soldering.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <div class="video-controls">
+                            <button class="btn fullscreen-btn" onclick="toggleFullscreen('video5-3')" aria-label="Toggle fullscreen for through-hole soldering video">
+                                <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                                Toggle Fullscreen
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="video-card">
+                    <div class="video-title">Rework Techniques <span class="video-label">Troubleshooting</span></div>
+                    <div class="video-container">
+                        <video id="video5-4" controls>
+                            <source src="videos/rework_techniques.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="video-controls">
+                        <button class="btn fullscreen-btn" onclick="toggleFullscreen('video5-4')" aria-label="Toggle fullscreen for rework techniques video">
+                            <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                            Toggle Fullscreen
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Module 6: Testing (unchanged) -->
+        <div class="module">
+            <div class="module-title" id="module6-title">Module 6: Testing</div>
+            <div id="module6" class="module-content">
+                <div class="module-description">
+                    Learn about various testing techniques and how to ensure your PCB functions correctly after assembly.
+                </div>
+                
+                <div class="photo-container">
+                    <img src="images/testing.jpg" alt="PCB Testing Setup">
+                </div>
+                
+                <div class="photo-description">
+                    <h3>PCB Testing Fundamentals</h3>
+                    <p>This image shows a professional PCB testing setup that includes multimeters, oscilloscopes, and power supply units. Testing is a crucial step in the PCB manufacturing process to ensure functionality and quality.</p>
+                    <p>Key testing methods include:</p>
+                    <ul style="text-align: left;">
+                        <li><strong>Visual Inspection:</strong> Checking for obvious defects like solder bridges or missing components</li>
+                        <li><strong>Continuity Testing:</strong> Verifying electrical connections between components</li>
+                        <li><strong>Functional Testing:</strong> Testing the board's performance under operational conditions</li>
+                        <li><strong>In-Circuit Testing:</strong> Examining individual components while they are on the board</li>
+                    </ul>
+                    <p>Always perform thorough testing before deploying your PCB in a real environment to prevent costly failures.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="google-form">
+            <h2>Test Your Knowledge</h2>
+            <p>Complete this quiz to assess your understanding of PCB design fundamentals.</p>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSft3R_-ZQne-U-F_pbz-54lKE4hgVm9YRc3KzulIKuhX88fvQ/viewform?usp=sharing" target="_blank" aria-label="Take PCB knowledge quiz">Take the Quiz</a>
+        </div>
+    </div>
+
+    <script>
+        // Initialize all modules as closed
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.module-content').forEach(content => {
+                content.style.display = "none";
+            });
+        });
+        
+        // Toggle module content visibility
+        document.querySelectorAll('.module-title').forEach(title => {
+            title.addEventListener('click', function() {
+                const moduleId = this.id.replace('-title', '');
+                const content = document.getElementById(moduleId);
+                
+                // Toggle the active class for the arrow rotation
+                this.classList.toggle('active');
+                
+                // Toggle the display of the content
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        });
+        
+        // Toggle fullscreen for videos with error checking
+        function toggleFullscreen(videoId) {
+            const video = document.getElementById(videoId);
+            
+            if (!video) {
+                console.error("Video element not found:", videoId);
+                return;
+            }
+            
+            if (!document.fullscreenElement) {
+                if (video.requestFullscreen) {
+                    video.requestFullscreen();
+                } else if (video.webkitRequestFullscreen) { /* Safari */
+                    video.webkitRequestFullscreen();
+                } else if (video.msRequestFullscreen) { /* IE11 */
+                    video.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) { /* Safari */
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) { 
+                    document.msExitFullscreen();
+                }
+            }
+        }
+        
+        // Pause all other videos when one is played
+        document.querySelectorAll('video').forEach(video => {
+            video.addEventListener('play', function() {
+                document.querySelectorAll('video').forEach(v => {
+                    if (v !== this) v.pause();
+                });
+            });
+        });
+    </script>
+</body>
+</html>
