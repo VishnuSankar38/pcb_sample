@@ -556,7 +556,7 @@
             </div>
         </div>
         
-        <!-- Module 6: Testing (unchanged) -->
+       
         <div class="module">
             <div class="module-title" id="module6-title">Module 6: Testing</div>
             <div id="module6" class="module-content">
@@ -593,23 +593,23 @@
     </div>
 
     <script>
-        // Initialize all modules as closed
+        
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.module-content').forEach(content => {
                 content.style.display = "none";
             });
         });
         
-        // Toggle module content visibility
+       
         document.querySelectorAll('.module-title').forEach(title => {
             title.addEventListener('click', function() {
                 const moduleId = this.id.replace('-title', '');
                 const content = document.getElementById(moduleId);
                 
-                // Toggle the active class for the arrow rotation
+                
                 this.classList.toggle('active');
                 
-                // Toggle the display of the content
+               
                 if (content.style.display === "block") {
                     content.style.display = "none";
                 } else {
@@ -618,7 +618,7 @@
             });
         });
         
-        // Toggle fullscreen for videos with error checking
+        
         function toggleFullscreen(videoId) {
             const video = document.getElementById(videoId);
             
@@ -646,7 +646,7 @@
             }
         }
         
-        // Pause all other videos when one is played
+        
         document.querySelectorAll('video').forEach(video => {
             video.addEventListener('play', function() {
                 document.querySelectorAll('video').forEach(v => {
