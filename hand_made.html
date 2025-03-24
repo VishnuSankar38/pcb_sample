@@ -660,23 +660,23 @@
     </div>
 
     <script>
-        // Initialize all modules as closed
+       
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.module-content').forEach(content => {
                 content.style.display = "none";
             });
         });
         
-        // Toggle module content visibility
+       
         document.querySelectorAll('.module-title').forEach(title => {
             title.addEventListener('click', function() {
                 const moduleId = this.id.replace('-title', '');
                 const content = document.getElementById(moduleId);
                 
-                // Toggle the active class for the arrow rotation
+               ]
                 this.classList.toggle('active');
                 
-                // Toggle the display of the content
+                ]
                 if (content.style.display === "block") {
                     content.style.display = "none";
                 } else {
@@ -685,7 +685,7 @@
             });
         });
         
-        // Toggle fullscreen for videos with error checking
+        
         function toggleFullscreen(videoId) {
             const video = document.getElementById(videoId);
             
@@ -697,23 +697,22 @@
             if (!document.fullscreenElement) {
                 if (video.requestFullscreen) {
                     video.requestFullscreen();
-                } else if (video.webkitRequestFullscreen) { /* Safari */
+                } else if (video.webkitRequestFullscreen) { 
                     video.webkitRequestFullscreen();
-                } else if (video.msRequestFullscreen) { /* IE11 */
+                } else if (video.msRequestFullscreen) {
                     video.msRequestFullscreen();
                 }
             } else {
                 if (document.exitFullscreen) {
                     document.exitFullscreen();
-                } else if (document.webkitExitFullscreen) { /* Safari */
+                } else if (document.webkitExitFullscreen) { 
                     document.webkitExitFullscreen();
-                } else if (document.msExitFullscreen) { /* IE11 */
+                } else if (document.msExitFullscreen) { 
                     document.msExitFullscreen();
                 }
             }
         }
         
-        // Pause all other videos when one is played
         document.querySelectorAll('video').forEach(video => {
             video.addEventListener('play', function() {
                 document.querySelectorAll('video').forEach(v => {
